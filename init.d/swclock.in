@@ -24,7 +24,7 @@ start()
 {
 	ebegin "Setting the local clock based on last shutdown time"
 	if ! swclock "${swclock_file}" 2> /dev/null; then
-		swclock --warn "$swclock_file"
+		swclock --warn "${swclock_file}"
 	fi
 	eend $?
 }
@@ -32,7 +32,7 @@ start()
 stop()
 {
 	ebegin "Saving the shutdown time"
-	checkpath -f -W -o root:root -m 0644 "$swclock_file"
+	checkpath -f -W -o root:root -m 0644 "${swclock_file}"
 	swclock --save "${swclock_file}"
 	eend $?
 }
