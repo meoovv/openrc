@@ -27,8 +27,11 @@ start()
 
 	ebegin "Setting the local clock based on last shutdown time"
 	if ! swclock "${swclock_file}" 2> /dev/null; then
-		swclock --warn "${fallback_file}"
+		if swclock --warn "${fallback_file}"; then
 		ewarn "Falling back to ${fallback_file} as clock reference"
+		else
+		eerror "Unable to set local clock"
+		fi
 	fi
 	eend $?
 }
